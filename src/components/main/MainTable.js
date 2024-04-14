@@ -190,7 +190,7 @@ function MainTable() {
         crearDesarrolladores[index] = crearDesarrollador;
         toast.current.show({
           severity: "success",
-          summary: "Successful",
+          summary: "Proceso Exitoso",
           detail: "Desarrollador Actualizado",
           life: 3000,
         });
@@ -200,7 +200,7 @@ function MainTable() {
         crearDesarrolladores.push(crearDesarrollador);
         toast.current.show({
           severity: "success",
-          summary: "Successful",
+          summary: "Proceso Exitoso",
           detail: "Desarrollador Creado",
           life: 3000,
         });
@@ -271,20 +271,22 @@ function MainTable() {
   };
 
   const eliminarDesarrollador = () => {
-    let _desarrolladores = desarrolladores.filter((val) => val.id !== desarrollador.id);
+    let _desarrolladores = desarrolladores.filter(
+      (val) => val.id !== desarrollador.id
+    );
 
     setDesarrolladores(_desarrolladores);
     setEliminarDesarrolladorDialog(false);
     setDesarrollador(vacioDesarrollador);
     toast.current.show({
       severity: "success",
-      summary: "Successful",
+      summary: "Proceso Exitoso",
       detail: "Desarrollador Eliminado",
       life: 3000,
     });
   };
 
-  const botonesEliminarDesarrolladores = (
+  const botonesEliminarDesarrollador = (
     <React.Fragment>
       <Button
         label="No"
@@ -300,6 +302,27 @@ function MainTable() {
       />
     </React.Fragment>
   );
+
+  const esconderEliminarDesarrolladoresDialog = () => {
+    setEliminarDesarrolladoresDialog(false);
+};
+
+const eliminarDesarolladoresSeleccionados = () => {
+  let _desarrolladores = desarrolladores.filter((val) => !desarrolladoresSeleccionados.includes(val));
+
+  setDesarrolladores(_desarrolladores);
+  setEliminarDesarrolladoresDialog(false);
+  setDesarrolladoresSeleccionados(null);
+  toast.current.show({ severity: 'success', summary: 'Proceso Exitoso', detail: 'Desarrolladores Eliminados', life: 3000 });
+};
+
+
+  const botonesEliminarDesarrolladores = (
+    <React.Fragment>
+        <Button label="No" icon="pi pi-times" outlined onClick={esconderEliminarDesarrolladoresDialog} />
+        <Button label="Yes" icon="pi pi-check" severity="danger" onClick={eliminarDesarolladoresSeleccionados} />
+    </React.Fragment>
+);
 
   return (
     <div>
@@ -466,7 +489,7 @@ function MainTable() {
         breakpoints={{ "960px": "75vw", "641px": "90vw" }}
         header="Eliminar Desarrollador"
         modal
-        footer={botonesEliminarDesarrolladores}
+        footer={botonesEliminarDesarrollador}
         onHide={esconderEliminarDesarrolladorDialog}
       >
         <div className="confirmation-content">
@@ -476,8 +499,29 @@ function MainTable() {
           />
           {desarrollador && (
             <span>
-              ¿Estas seguro que quieres eliminar el elemento <b>{desarrollador.nombre}</b>?
+              ¿Estas seguro que quieres eliminar el elemento{" "}
+              <b>{desarrollador.nombre}</b>?
             </span>
+          )}
+        </div>
+      </Dialog>
+
+      <Dialog
+        visible={eliminarDesarrolladoresDialog}
+        style={{ width: "32rem" }}
+        breakpoints={{ "960px": "75vw", "641px": "90vw" }}
+        header="Eliminar Desarrolladores"
+        modal
+        footer={botonesEliminarDesarrolladores}
+        onHide={esconderEliminarDesarrolladoresDialog}
+      >
+        <div className="confirmation-content">
+          <i
+            className="pi pi-exclamation-triangle mr-3"
+            style={{ fontSize: "2rem" }}
+          />
+          {desarrollador && (
+            <span>Estas Seguro que deseas eliminar la lista de Desarrolladores?</span>
           )}
         </div>
       </Dialog>
