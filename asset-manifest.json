@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/Reto-PrimeReactApp/static/css/main.58e6ec0c.css",
+    "main.js": "/Reto-PrimeReactApp/static/js/main.2497a696.js",
+    "static/js/762.0857c8cd.chunk.js": "/Reto-PrimeReactApp/static/js/762.0857c8cd.chunk.js",
+    "static/js/557.a794d716.chunk.js": "/Reto-PrimeReactApp/static/js/557.a794d716.chunk.js",
+    "static/js/453.c015aba9.chunk.js": "/Reto-PrimeReactApp/static/js/453.c015aba9.chunk.js",
+    "static/js/239.7ffd723d.chunk.js": "/Reto-PrimeReactApp/static/js/239.7ffd723d.chunk.js",
+    "static/js/213.3d796856.chunk.js": "/Reto-PrimeReactApp/static/js/213.3d796856.chunk.js",
+    "static/js/732.7001e4d2.chunk.js": "/Reto-PrimeReactApp/static/js/732.7001e4d2.chunk.js",
+    "static/media/primeicons.svg": "/Reto-PrimeReactApp/static/media/primeicons.6ed59f962963a4a73af2.svg",
+    "static/media/primeicons.eot": "/Reto-PrimeReactApp/static/media/primeicons.ff0c4cd79b2ffca2de54.eot",
+    "static/media/primeicons.woff": "/Reto-PrimeReactApp/static/media/primeicons.8931fda1930c3bd21e96.woff",
+    "static/media/primeicons.ttf": "/Reto-PrimeReactApp/static/media/primeicons.a5c2a53d1ff7a9ff5933.ttf",
+    "static/media/primeicons.woff2": "/Reto-PrimeReactApp/static/media/primeicons.024b32cc7bf399b1a847.woff2",
+    "static/media/imagen1.jpg": "/Reto-PrimeReactApp/static/media/imagen1.be8f7c854dc37845c9a0.jpg",
+    "index.html": "/Reto-PrimeReactApp/index.html",
+    "main.58e6ec0c.css.map": "/Reto-PrimeReactApp/static/css/main.58e6ec0c.css.map",
+    "main.2497a696.js.map": "/Reto-PrimeReactApp/static/js/main.2497a696.js.map",
+    "762.0857c8cd.chunk.js.map": "/Reto-PrimeReactApp/static/js/762.0857c8cd.chunk.js.map",
+    "557.a794d716.chunk.js.map": "/Reto-PrimeReactApp/static/js/557.a794d716.chunk.js.map",
+    "453.c015aba9.chunk.js.map": "/Reto-PrimeReactApp/static/js/453.c015aba9.chunk.js.map",
+    "239.7ffd723d.chunk.js.map": "/Reto-PrimeReactApp/static/js/239.7ffd723d.chunk.js.map",
+    "213.3d796856.chunk.js.map": "/Reto-PrimeReactApp/static/js/213.3d796856.chunk.js.map",
+    "732.7001e4d2.chunk.js.map": "/Reto-PrimeReactApp/static/js/732.7001e4d2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.58e6ec0c.css",
+    "static/js/main.2497a696.js"
+  ]
+}
