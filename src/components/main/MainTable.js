@@ -310,7 +310,6 @@ function MainTable() {
         break;
       }
     }
-    console.log(listaIDs);
     return numeroLibre;
   };
 
