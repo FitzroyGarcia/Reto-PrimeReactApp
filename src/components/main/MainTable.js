@@ -11,13 +11,15 @@ import { Toast } from "primereact/toast";
 import { Toolbar } from "primereact/toolbar";
 import { Button } from "primereact/button";
 import { DataTable } from "primereact/datatable";
+import { IconField } from "primereact/iconfield";
+import { InputIcon } from "primereact/inputicon";
 import { InputText } from "primereact/inputtext";
 import { Column } from "primereact/column";
 import { Dialog } from "primereact/dialog";
 import { InputTextarea } from "primereact/inputtextarea";
 import { InputNumber } from "primereact/inputnumber";
+import { FileUpload } from "primereact/fileupload";
 
-import imagen from "../data/images/imagen1.jpg";
 
 function MainTable() {
   let vacioDesarrollador = {
@@ -61,6 +63,16 @@ function MainTable() {
       null
     ); /**Almacena el filtro o palabra cable para ealizar busquedas en la tabla*/
 
+    const cols = [
+      { field: 'id', header: 'ID' },
+      { field: 'nombre', header: 'Nombre' },
+      { field: 'edad', header: 'Edad' },
+      { field: 'ciudad', header: 'Ciudad' },
+      { field: 'experiencia', header: 'Experiencia' }
+  ];
+
+  const exportColumns = cols.map((col) => ({ title: col.header, dataKey: col.field })); 
+
   useEffect(() => {
     proveedorDesarrolladores
       .getDesarrolladores()
@@ -81,20 +93,23 @@ function MainTable() {
     return (
       <div className="flex flex-wrap gap-2">
         <Button
-          label="Nuevo"
+          label=""
           icon="pi pi-plus"
           severity="success"
           onClick={AbrirNuevoDesarrollador}
+          title="Nuevo"
         />
         <Button
-          label="Eliminar"
+          label=""
           icon="pi pi-trash"
           severity="danger"
           onClick={confirmarEliminarSeleccionados}
+          title="Eliminar"
           disabled={
             !desarrolladoresSeleccionados ||
             !desarrolladoresSeleccionados.length
           }
+          style={{opacity: desarrolladoresSeleccionados && desarrolladoresSeleccionados.length > 0 ? 1 : 0}}
         />
       </div>
     );
@@ -104,36 +119,61 @@ function MainTable() {
     dt.current.exportCSV();
   };
 
+  const exportarPdf = () => {
+    import('jspdf').then((jsPDF) => {//jspdf: Permite Generar PDFs en el anvegador
+        import('jspdf-autotable').then(() => {//jspdf-autotable: Extension que permite utilizar tablas dentro de los PDFs
+            const doc = new jsPDF.default(0, 0);
+
+            doc.autoTable(exportColumns, desarrolladores);
+            doc.save('products.pdf');
+        });
+    });
+};
+
+  /*const exportarPdf = () => {
+    import('jspdf').then((jsPDF) => {
+        import('jspdf-autotable').then(() => {
+            const doc = new jsPDF.default(0, 0);
+
+            doc.autoTable(exportColumns, desarrolladores);
+            doc.save('products.pdf');
+        });
+    });
+};*/
+
+
+    
+
   const barraHerramientasDerecha = () => {
     return (
-      <Button
-        label="Export"
-        icon="pi pi-upload"
-        className="p-button-help"
-        onClick={exportarCSV}
-      />
+      <div className="flex flex-wrap gap-2">
+        <Button type="button" icon="pi pi-file" rounded onClick={() => exportarCSV(false)} data-pr-tooltip="CSV"  title="Descargar CSV"/>
+        <Button type="button" icon="pi pi-file-pdf" severity="warning" rounded onClick={exportarPdf} data-pr-tooltip="PDF" />
+        
+        {/*<Button type="button" icon="pi pi-file-excel" severity="success" rounded onClick={exportExcel} data-pr-tooltip="XLS" />*/}
+        
+      </div>
     );
   };
 
   const cabeceraTabla = (
     <div className="flex flex-wrap gap-2 align-items-center justify-content-between">
       <h4 className="m-0">Equipo de Programacion</h4>
-      <span className="p-input-icon-left">
-        <i className="pi pi-search" />
+      <IconField iconPosition="left">
+        <InputIcon className="pi pi-search"> </InputIcon>
         <InputText
           type="search"
           onInput={(e) => setFiltro(e.target.value)}
           placeholder="Buscar..."
         />
-      </span>
+      </IconField>
     </div>
   );
 
   const plantillaImagen = (rowData) => {
-    console.log(rowData);
     return (
       <img
-        src={`../data/images/${rowData.avatar}`}
+        src={rowData.avatar}
         alt={rowData.avatar}
         className="shadow-2 border-round"
         style={{ width: "64px" }}
@@ -144,6 +184,7 @@ function MainTable() {
   const editarDesarrollador = (desarrollador) => {
     setDesarrollador({ ...desarrollador });
     setDesarrolladorDialog(true);
+    console.log("Devs", desarrolladores);
   };
 
   const confirmarEliminarDesarrollador = (desarrollador) => {
@@ -160,6 +201,7 @@ function MainTable() {
           outlined
           className="mr-2"
           onClick={() => editarDesarrollador(rowData)}
+          title="Editar"
         />
         <Button
           icon="pi pi-trash"
@@ -167,6 +209,7 @@ function MainTable() {
           outlined
           severity="danger"
           onClick={() => confirmarEliminarDesarrollador(rowData)}
+          title="Eliminar"
         />
       </React.Fragment>
     );
@@ -196,7 +239,6 @@ function MainTable() {
         });
       } else {
         crearDesarrollador.id = crearId();
-        crearDesarrollador.avatar = "product-placeholder.svg";
         crearDesarrolladores.push(crearDesarrollador);
         toast.current.show({
           severity: "success",
@@ -305,27 +347,52 @@ function MainTable() {
 
   const esconderEliminarDesarrolladoresDialog = () => {
     setEliminarDesarrolladoresDialog(false);
-};
+  };
 
-const eliminarDesarolladoresSeleccionados = () => {
-  let _desarrolladores = desarrolladores.filter((val) => !desarrolladoresSeleccionados.includes(val));
+  const eliminarDesarolladoresSeleccionados = () => {
+    let _desarrolladores = desarrolladores.filter(
+      (val) => !desarrolladoresSeleccionados.includes(val)
+    );
 
-  setDesarrolladores(_desarrolladores);
-  setEliminarDesarrolladoresDialog(false);
-  setDesarrolladoresSeleccionados(null);
-  toast.current.show({ severity: 'success', summary: 'Proceso Exitoso', detail: 'Desarrolladores Eliminados', life: 3000 });
-};
-
+    setDesarrolladores(_desarrolladores);
+    setEliminarDesarrolladoresDialog(false);
+    setDesarrolladoresSeleccionados(null);
+    toast.current.show({
+      severity: "success",
+      summary: "Proceso Exitoso",
+      detail: "Desarrolladores Eliminados",
+      life: 3000,
+    });
+  };
 
   const botonesEliminarDesarrolladores = (
     <React.Fragment>
-        <Button label="No" icon="pi pi-times" outlined onClick={esconderEliminarDesarrolladoresDialog} />
-        <Button label="Yes" icon="pi pi-check" severity="danger" onClick={eliminarDesarolladoresSeleccionados} />
+      <Button
+        label="No"
+        icon="pi pi-times"
+        outlined
+        onClick={esconderEliminarDesarrolladoresDialog}
+      />
+      <Button
+        label="Yes"
+        icon="pi pi-check"
+        severity="danger"
+        onClick={eliminarDesarolladoresSeleccionados}
+      />
     </React.Fragment>
-);
+  );
+
+  const subirImagen = (e) => {
+    const dataImagen = e.files;
+    let _desarrollador = { ...desarrollador };
+
+    _desarrollador[`avatar`] = dataImagen[0].objectURL;
+
+    setDesarrollador(_desarrollador);
+  };
 
   return (
-    <div>
+    <div style={{ margin: "50px" }}>
       <Toast ref={toast} />
       {/*Permite crear notificaciones o pequeños mensajes*/}
 
@@ -419,13 +486,20 @@ const eliminarDesarolladoresSeleccionados = () => {
         footer={botonesDesarrollador}
         onHide={esconderDialog}
       >
-        {/*desarrollador.avatar && (
-          <img
-            src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`}
-            alt={product.image}
-            className="product-image block m-auto pb-3"
-          />
-        )*/}
+        <img
+          src={desarrollador.avatar}
+          alt={desarrollador.avatar}
+          className="product-image block m-auto pb-3"
+        />
+        <FileUpload
+          mode="basic"
+          accept="image/*"
+          maxFileSize={1000000}
+          onSelect={subirImagen}
+          customUpload
+          chooseLabel="Seleccionar archivo" 
+          style={{marginBottom:'20px'}}
+        />
         <div className="field">
           <label htmlFor="nombre" className="font-bold">
             Nombre
@@ -521,7 +595,9 @@ const eliminarDesarolladoresSeleccionados = () => {
             style={{ fontSize: "2rem" }}
           />
           {desarrollador && (
-            <span>Estas Seguro que deseas eliminar la lista de Desarrolladores?</span>
+            <span>
+              Estas Seguro que deseas eliminar la lista de Desarrolladores?
+            </span>
           )}
         </div>
       </Dialog>
@@ -530,56 +606,3 @@ const eliminarDesarolladoresSeleccionados = () => {
 }
 
 export default MainTable;
-
-/*import { Button } from "primereact/button";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-
-function MainTable() {
-  const data = [
-    {
-      id: 1,
-      nombre: "JOSE",
-      edad: 30,
-      ciudad: "CUSCO",
-    },
-    {
-      id: 2,
-      nombre: "HERBERTH",
-      edad: 26,
-      ciudad: "PAUCARTAMBO",
-    },
-    {
-      id: 3,
-      nombre: "JOEL",
-      edad: 25,
-      ciudad: "URUBAMBA",
-    },
-    {
-      id: 4,
-      nombre: "ERNESTO",
-      edad: 27,
-      ciudad: "CALCA",
-    },
-  ];
-
-  return (
-    <div className="">
-      <Button label="Crear" rounded />
-      <DataTable value={data}>
-        <Column field="id" header="ID" />
-        <Column field="nombre" header="Nombre" />
-        <Column field="edad" header="Edad" />
-        <Column field="ciudad" header="Ciudad" />
-        <Column header="Ver" />
-        <Column header="Editar" />
-        <Column header="Eliminar" />
-        <Column headerStyle={{ width: '10%', minWidth: '8rem' }} bodyStyle={{ textAlign: 'center' }}></Column>
-      </DataTable>
-    </div>
-  );
-}
-
-
-
-export default MainTable;*/
