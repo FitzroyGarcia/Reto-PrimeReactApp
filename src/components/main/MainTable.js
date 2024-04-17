@@ -20,7 +20,6 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { InputNumber } from "primereact/inputnumber";
 import { FileUpload } from "primereact/fileupload";
 
-
 function MainTable() {
   let vacioDesarrollador = {
     id: null,
@@ -63,15 +62,18 @@ function MainTable() {
       null
     ); /**Almacena el filtro o palabra cable para ealizar busquedas en la tabla*/
 
-    const cols = [
-      { field: 'id', header: 'ID' },
-      { field: 'nombre', header: 'Nombre' },
-      { field: 'edad', header: 'Edad' },
-      { field: 'ciudad', header: 'Ciudad' },
-      { field: 'experiencia', header: 'Experiencia' }
+  const cols = [
+    { field: "id", header: "ID" },
+    { field: "nombre", header: "Nombre" },
+    { field: "edad", header: "Edad" },
+    { field: "ciudad", header: "Ciudad" },
+    { field: "experiencia", header: "Experiencia" },
   ];
 
-  const exportColumns = cols.map((col) => ({ title: col.header, dataKey: col.field })); 
+  const exportColumns = cols.map((col) => ({
+    title: col.header,
+    dataKey: col.field,
+  }));
 
   useEffect(() => {
     proveedorDesarrolladores
@@ -109,7 +111,13 @@ function MainTable() {
             !desarrolladoresSeleccionados ||
             !desarrolladoresSeleccionados.length
           }
-          style={{opacity: desarrolladoresSeleccionados && desarrolladoresSeleccionados.length > 0 ? 1 : 0}}
+          style={{
+            opacity:
+              desarrolladoresSeleccionados &&
+              desarrolladoresSeleccionados.length > 0
+                ? 1
+                : 0,
+          }}
         />
       </div>
     );
@@ -120,38 +128,37 @@ function MainTable() {
   };
 
   const exportarPdf = () => {
-    import('jspdf').then((jsPDF) => {//jspdf: Permite Generar PDFs en el anvegador
-        import('jspdf-autotable').then(() => {//jspdf-autotable: Extension que permite utilizar tablas dentro de los PDFs
-            const doc = new jsPDF.default(0, 0);
+    import("jspdf").then((jsPDF) => {
+      //jspdf: Permite Generar PDFs en el anvegador
+      import("jspdf-autotable").then(() => {
+        //jspdf-autotable: Extension que permite utilizar tablas dentro de los PDFs
+        const doc = new jsPDF.default(0, 0);
 
-            doc.autoTable(exportColumns, desarrolladores);
-            doc.save('products.pdf');
-        });
+        doc.autoTable(exportColumns, desarrolladores);
+        doc.save("products.pdf");
+      });
     });
-};
-
-  /*const exportarPdf = () => {
-    import('jspdf').then((jsPDF) => {
-        import('jspdf-autotable').then(() => {
-            const doc = new jsPDF.default(0, 0);
-
-            doc.autoTable(exportColumns, desarrolladores);
-            doc.save('products.pdf');
-        });
-    });
-};*/
-
-
-    
+  };
 
   const barraHerramientasDerecha = () => {
     return (
       <div className="flex flex-wrap gap-2">
-        <Button type="button" icon="pi pi-file" rounded onClick={() => exportarCSV(false)} data-pr-tooltip="CSV"  title="Descargar CSV"/>
-        <Button type="button" icon="pi pi-file-pdf" severity="warning" rounded onClick={exportarPdf} data-pr-tooltip="PDF" />
-        
-        {/*<Button type="button" icon="pi pi-file-excel" severity="success" rounded onClick={exportExcel} data-pr-tooltip="XLS" />*/}
-        
+        <Button
+          type="button"
+          icon="pi pi-file"
+          rounded
+          onClick={() => exportarCSV(false)}
+          data-pr-tooltip="CSV"
+          title="Descargar CSV"
+        />
+        <Button
+          type="button"
+          icon="pi pi-file-pdf"
+          severity="warning"
+          rounded
+          onClick={exportarPdf}
+          data-pr-tooltip="PDF"
+        />
       </div>
     );
   };
@@ -278,7 +285,7 @@ function MainTable() {
     return index;
   };
 
-  const crearId = () => {
+  /*const crearId = () => {
     let id = "";
     let chars =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -288,6 +295,23 @@ function MainTable() {
     }
 
     return id;
+  };*/
+
+  const crearId = () => {
+    let numeroLibre = 1;
+
+    const listaIDs = desarrolladores.map(({ id }) => id);
+    listaIDs.sort((a, b) => a - b);
+
+    for (const numero of listaIDs) {
+      if (numero === numeroLibre) {
+        numeroLibre++;
+      } else {
+        break;
+      }
+    }
+    console.log(listaIDs);
+    return numeroLibre;
   };
 
   const modificarEntrada = (e, nombreAtributo) => {
@@ -497,8 +521,8 @@ function MainTable() {
           maxFileSize={1000000}
           onSelect={subirImagen}
           customUpload
-          chooseLabel="Seleccionar archivo" 
-          style={{marginBottom:'20px'}}
+          chooseLabel="Seleccionar archivo"
+          style={{ marginBottom: "20px" }}
         />
         <div className="field">
           <label htmlFor="nombre" className="font-bold">
