@@ -6,12 +6,12 @@ export default function Navbar() {
         {
             label: 'Home',
             icon: 'pi pi-home',
-            command: () => { window.location = '/'; }
+            command: () => { window.location = ''; }
         },
         {
-            label: 'Mi Equipo',
+            label: 'Mi Equipo desarrolador',
             icon: 'pi pi-star',
-            command: () => { window.location = '/prueba'; } 
+            command: () => { window.location = '/#/prueba'; } 
         },
     ];
 
