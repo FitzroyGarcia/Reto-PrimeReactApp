@@ -9,7 +9,7 @@ export default function Navbar() {
             command: () => { window.location = ''; }
         },
         {
-            label: 'Mi Equipo desarrolador',
+            label: 'Mi Equipo de Desarrollo',
             icon: 'pi pi-star',
             command: () => { window.location = '/#/prueba'; } 
         },

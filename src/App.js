@@ -1,6 +1,6 @@
 import "./App.css";
 
-import {HashRouter, Routes, Route } from "react-router-dom";
+import {BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
@@ -16,14 +16,14 @@ import Trying from "./components/trying";
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
         <Navbar />
         <Routes>
           <Route path="/" Component={Trying}></Route>
           <Route path="/prueba" Component={MainTable}></Route>
           <Route path="*"></Route>
         </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
