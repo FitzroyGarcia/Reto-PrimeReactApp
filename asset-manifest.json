@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Reto-PrimeReactApp/static/css/main.58e6ec0c.css",
-    "main.js": "/Reto-PrimeReactApp/static/js/main.75db216a.js",
+    "main.js": "/Reto-PrimeReactApp/static/js/main.204ddfbb.js",
     "static/js/762.0857c8cd.chunk.js": "/Reto-PrimeReactApp/static/js/762.0857c8cd.chunk.js",
     "static/js/557.a794d716.chunk.js": "/Reto-PrimeReactApp/static/js/557.a794d716.chunk.js",
     "static/js/453.c015aba9.chunk.js": "/Reto-PrimeReactApp/static/js/453.c015aba9.chunk.js",
@@ -16,7 +16,7 @@
     "static/media/imagen1.jpg": "/Reto-PrimeReactApp/static/media/imagen1.be8f7c854dc37845c9a0.jpg",
     "index.html": "/Reto-PrimeReactApp/index.html",
     "main.58e6ec0c.css.map": "/Reto-PrimeReactApp/static/css/main.58e6ec0c.css.map",
-    "main.75db216a.js.map": "/Reto-PrimeReactApp/static/js/main.75db216a.js.map",
+    "main.204ddfbb.js.map": "/Reto-PrimeReactApp/static/js/main.204ddfbb.js.map",
     "762.0857c8cd.chunk.js.map": "/Reto-PrimeReactApp/static/js/762.0857c8cd.chunk.js.map",
     "557.a794d716.chunk.js.map": "/Reto-PrimeReactApp/static/js/557.a794d716.chunk.js.map",
     "453.c015aba9.chunk.js.map": "/Reto-PrimeReactApp/static/js/453.c015aba9.chunk.js.map",
@@ -26,6 +26,6 @@
   },
   "entrypoints": [
     "static/css/main.58e6ec0c.css",
-    "static/js/main.75db216a.js"
+    "static/js/main.204ddfbb.js"
   ]
 }
