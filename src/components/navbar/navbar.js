@@ -4,14 +4,14 @@ import { Menubar } from 'primereact/menubar';
 export default function Navbar() {
     const items = [
         {
-            label: 'Home',
+            label: 'Menu',
             icon: 'pi pi-home',
-            command: () => { window.location = ''; }
+            command: () => { window.location = '/'; }
         },
         {
             label: 'Mi Equipo de Desarrollo',
             icon: 'pi pi-star',
-            command: () => { window.location = '/#/prueba'; } 
+            command: () => { window.location = '/PrimeReactProvider/#/prueba'; } 
         },
     ];
 
