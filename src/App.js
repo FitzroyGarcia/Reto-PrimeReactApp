@@ -21,7 +21,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/Reto-PrimeReactApp/" Component={Trying}></Route>
-          <Route path="/PrimeReactProvider/#/prueba" Component={MainTable}></Route>
+          <Route path="/Reto-PrimeReactApp/#/prueba" Component={MainTable}></Route>
           <Route path="*"></Route>
         </Routes>
       </PrimeReactProvider>

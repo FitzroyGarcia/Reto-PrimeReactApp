@@ -11,7 +11,7 @@ export default function Navbar() {
         {
             label: 'Mi Equipo de Desarrollo',
             icon: 'pi pi-star',
-            command: () => { window.location = '/PrimeReactProvider/#/prueba'; } 
+            command: () => { window.location = '/Reto-PrimeReactApp/#/prueba'; } 
         },
     ];
 
